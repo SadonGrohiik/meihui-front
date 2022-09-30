@@ -1,0 +1,15 @@
+02:58:09:161 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+02:58:09:161 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+03:58:21:930 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+03:58:21:930 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+05:58:32:343 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+05:58:32:344 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+06:58:43:066 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+06:58:43:066 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+22:59:20:875 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+22:59:20:875 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 

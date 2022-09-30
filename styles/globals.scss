@@ -1,9 +1,34 @@
+@font-face {
+  font-family: 'Yekan';
+  font-weight: 300;
+  src: url('../assets/fonts/Qs_Iranyekan\ medium.ttf');
+  font-weight: 400;
+  src: url('../assets/fonts/Qs_Iranyekan\ bold.ttf');
+}
+
+@font-face{
+  font-family: 'Yekan';
+  font-weight: 500;
+  src: url('../assets/fonts/Qs_Iranyekan\ extrabold.ttf');
+  font-weight: 600;
+  src: url('../assets/fonts/Qs_Iranyekan\ black.ttf');
+  font-weight: 800;
+  src: url('../assets/fonts/Qs_Iranyekan\ extrablack.ttf');
+  font-weight: 1000;
+}
+
+@font-face {
+  font-family: 'Yekan';
+  font-weight: 200;
+  src: url('../assets/fonts/Qs_Iranyekan\ light.ttf');
+}
+
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Yekan";
     direction: rtl;
 }
 
@@ -28,6 +53,20 @@ a {
 
 li{
   display: inline-block;
-  margin: 20px;
   list-style: none;
+}
+label{
+  font-family: 'Yekan';
+  font-weight: 500;
+}
+.mantine-TextInput-input{
+  text-align: right;
+  padding: 20px;
+  padding-right: 45px;
+  font-family: 'Yekan';
+  font-weight: 300;
+}
+
+.mantine-TextInput-rightSection{
+  padding-right: 10px;
 }

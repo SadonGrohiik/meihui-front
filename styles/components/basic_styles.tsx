@@ -4,7 +4,7 @@ import React from "react";
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 260px;
+  height: 230px;
   overflow: hidden;
 `;
 

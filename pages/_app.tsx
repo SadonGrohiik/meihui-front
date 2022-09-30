@@ -1,7 +1,7 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, Button } from "@mantine/core";
 import Layout from "../components/layout";
 import "../styles/index.scss";
 
@@ -21,7 +21,20 @@ function MyApp({ Component, pageProps }: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          colorScheme: "light",
+          fontFamily: "Yekan",
+          colors: {
+            pastelYellow: ["#fed097"],
+            pastelBlue: [
+              "#d2f7ef",
+              "#c1ece4",
+              "#a3dbd0",
+              "#88d0c3",
+              "#7bcbbc",
+              "#7bcbbc",
+              "#6fb7a9",
+              "#62a296",
+            ],
+          },
         }}
       >
         <Component {...pageProps} />

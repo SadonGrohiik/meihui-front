@@ -1,0 +1,17 @@
+04:59:53:366 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+04:59:53:367 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+05:59:54:465 [WARN]	Request Failed. ErrorCode: 112029 errorMessage: Platform Status, Send Request Failed. WinHTTP Cannot Connect. last error code = 12029 
+07:00:02:887 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+07:00:02:887 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+08:00:11:055 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+08:00:11:055 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+09:00:19:199 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+09:00:19:199 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
+18:00:33:711 [WARN]	Request Failed. ErrorCode: 112029 errorMessage: Platform Status, Send Request Failed. WinHTTP Cannot Connect. last error code = 12029 
+21:00:57:531 [WARN]	WGudeRequest::receiveResponse Failed - Request Handle Closed
+21:00:57:531 [WARN]	Request Failed. ErrorCode: 100000 errorMessage: Platform Status, Failed to Write Request Body. The operation completed successfully.
+, last error code = 0 
