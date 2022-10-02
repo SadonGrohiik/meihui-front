@@ -65,7 +65,7 @@ export function ProductCard(props: any) {
           {props.discount && props.discount > 0 && props.stock > 0 ? ( //Checks ford discount
             <Group position="apart" mt="lg">
               <Badge
-                color="pastelBlue.2"
+                color="pastelBlue.5"
                 variant="filled"
                 size={mobile ? "sm" : "md"}
               >

@@ -9,11 +9,11 @@ const useStyles = createStyles((theme) => ({
     fontSize: 13,
     fontFamily: "Yekan",
     "&:focus": {
-      color: theme.colors.pastelBlue[1],
+      color: theme.colors.pastelBlue[4],
     },
   },
   active_link: {
-    color: theme.colors.pastelBlue[1],
+    color: theme.colors.pastelBlue[4],
     fontSize: 13,
     fontFamily: "Yekan",
   },

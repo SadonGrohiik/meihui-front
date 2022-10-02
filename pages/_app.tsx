@@ -5,7 +5,7 @@ import { MantineProvider, Button } from "@mantine/core";
 import Layout from "../components/layout";
 import "../styles/index.scss";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <Layout>
       <Head>
@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               "#a3dbd0",
               "#88d0c3",
               "#7bcbbc",
-              "#7bcbbc",
+              "#6fc7b7",
               "#6fb7a9",
               "#62a296",
             ],

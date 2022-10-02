@@ -11,6 +11,7 @@ import {
   Grid,
   MantineProvider,
   useMantineTheme,
+  Divider,
 } from "@mantine/core";
 import styled from "@emotion/styled";
 import Image from "next/image";
@@ -20,6 +21,7 @@ import {
   IconUser,
   IconBasket,
   IconSearch,
+  IconDoorEnter,
 } from "@tabler/icons";
 import useFetch from "../util/useFetch";
 import Link from "next/link";
@@ -82,11 +84,19 @@ const useStyles = createStyles((theme) => ({
   },
   iconBtn: {
     padding: 6,
+    fontFamily: "Yekan",
+    fontWeight: 400,
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0)",
+    },
   },
   searchBar: {
     textAlign: "right",
     flexGrow: 1,
     maxWidth: 520,
+    "&:focus": {
+      borderColor: theme.colors.pastelColor,
+    },
   },
   rightHeader: {},
   leftHeader: {
@@ -96,7 +106,7 @@ const useStyles = createStyles((theme) => ({
   logo: {
     marginBottom: 4,
   },
-  header: {},
+  header: { paddingLeft: 0 },
 }));
 
 interface Category {
@@ -112,6 +122,7 @@ function Navbar() {
   const theme = useMantineTheme();
   const button_color = theme.colors.pastelBlue;
   const { classes } = useStyles();
+  let auth = false;
   const { loading, error, data } = useFetch(
     "http://localhost:1337/api/categories"
   );
@@ -156,11 +167,28 @@ function Navbar() {
   );
 
   const icons = (
-    <Group position="right" spacing="sm" p="xs">
-      <Button className={classes.iconBtn} variant="subtle" color="pastelBlue.5">
-        <IconUser size="28px" strokeWidth="1.7" />
-      </Button>
-      <Button className={classes.iconBtn} variant="subtle" color="pastelBlue.5">
+    <Group position="right" spacing="xs" p={"xs"}>
+      {auth ? (
+        <Button className={classes.iconBtn} variant="subtle" color="dark">
+          <IconUser size="28px" strokeWidth="1.7" />
+        </Button>
+      ) : (
+        <Button
+          className={classes.iconBtn}
+          variant="outline"
+          color="dark"
+          p={6}
+          px={10}
+          ml="sm"
+          radius="md"
+        >
+          <IconDoorEnter size="28px" strokeWidth="1.7" /> &nbsp;&nbsp;ورود | ثبت
+          نام &nbsp;
+        </Button>
+      )}{" "}
+      <Divider size="sm" orientation="vertical" />
+      <Button className={classes.iconBtn} variant="subtle" color="dark">
+        &nbsp;&nbsp;
         <IconBasket size="28px" strokeWidth="1.6" />
       </Button>
     </Group>
@@ -182,9 +210,9 @@ function Navbar() {
         },
       }}
     >
-      <Header height={header_height} mb={40} px="md" className={classes.header}>
+      <Header height={header_height} mb={40} px="xs" className={classes.header}>
         <Container className={classes.inner}>
-          <Group position="apart" spacing="xl">
+          <Group position="apart" spacing="md">
             <Group className={classes.rightHeader} position="left" spacing="xl">
               {logo}
               <div className={classes.links}>{mainLinks}</div>

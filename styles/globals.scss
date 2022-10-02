@@ -25,6 +25,20 @@
 
 
 html,
+::-moz-selection { /* Code for Firefox */
+  color: rgb(255, 255, 255);
+  background: #88d0c3;
+}
+
+::selection {
+  color: rgb(255, 255, 255);
+  background: #88d0c3;
+}
+.mantine-TextInput-input{
+  &:focus{
+    border:1.5px solid #88d0c3!important; 
+  }
+}
 body {
   padding: 0;
   margin: 0;
