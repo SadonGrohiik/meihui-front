@@ -207,7 +207,7 @@ async function getProductBySlug(slug: string) {
       {${Q_getProduct(slug)}}
     `,
   });
-  console.log(res);
+
   return res;
 }
 

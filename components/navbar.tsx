@@ -22,6 +22,7 @@ import {
   IconBasket,
   IconSearch,
   IconDoorEnter,
+  IconDoorExit,
 } from "@tabler/icons";
 import useFetch from "../util/useFetch";
 import Link from "next/link";
@@ -29,6 +30,9 @@ import { MenuItem } from "@mantine/core/lib/Menu/MenuItem/MenuItem";
 import { ThemeContext } from "styled-components";
 import logoImg from "../assets/images/2x/logo.png";
 import { c_main } from "../util/styleParams";
+import React, { useContext } from "react";
+import AppContext from "../context/AppContext";
+import { logout } from "./lib/auth";
 
 const header_height: number = 80;
 
@@ -118,7 +122,8 @@ interface Category {
   };
 }
 
-function Navbar() {
+const Navbar = () => {
+  const { user, setUser } = useContext(AppContext);
   const theme = useMantineTheme();
   const button_color = theme.colors.pastelBlue;
   const { classes } = useStyles();
@@ -165,26 +170,53 @@ function Navbar() {
       />
     </Link>
   );
-
-  const icons = (
-    <Group position="right" spacing="xs" p={"xs"}>
-      {auth ? (
+  const accountMenu = (
+    <Menu width={200}>
+      <Menu.Target>
         <Button className={classes.iconBtn} variant="subtle" color="dark">
           <IconUser size="28px" strokeWidth="1.7" />
         </Button>
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Label>حساب</Menu.Label>
+        <Menu.Item icon={<IconDoorExit size={14} />}>
+          {" "}
+          <Link href="/">
+            <a
+              className="nav-link"
+              onClick={() => {
+                logout();
+                setUser(null);
+              }}
+            >
+              خروج
+            </a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item icon={<IconDoorExit size={14} />}>پروفایل</Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+  );
+
+  const icons = (
+    <Group position="right" spacing="xs" p={"xs"}>
+      {user ? (
+        <>{accountMenu}</>
       ) : (
-        <Button
-          className={classes.iconBtn}
-          variant="outline"
-          color="dark"
-          p={6}
-          px={10}
-          ml="sm"
-          radius="md"
-        >
-          <IconDoorEnter size="28px" strokeWidth="1.7" /> &nbsp;&nbsp;ورود | ثبت
-          نام &nbsp;
-        </Button>
+        <Link href="/login">
+          <Button
+            className={classes.iconBtn}
+            variant="outline"
+            color="dark"
+            p={6}
+            px={10}
+            ml="sm"
+            radius="md"
+          >
+            <IconDoorEnter size="28px" strokeWidth="1.7" /> &nbsp;&nbsp;ورود |
+            ثبت نام &nbsp;
+          </Button>
+        </Link>
       )}{" "}
       <Divider size="sm" orientation="vertical" />
       <Button className={classes.iconBtn} variant="subtle" color="dark">
@@ -227,7 +259,7 @@ function Navbar() {
       </Header>
     </MantineProvider>
   );
-}
+};
 
 function checkPrimary(category: Category) {
   if (category.attributes.primary)

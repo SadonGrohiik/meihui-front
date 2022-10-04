@@ -1,101 +1,96 @@
-/* /lib/auth.js */
-
-import jwtDecode from "jwt-decode";
-import Cookies from "js-cookie";
-import Strapi from "strapi-sdk-javascript/build/main";
-
+import { useEffect } from "react";
 import Router from "next/router";
-import { stringify } from "querystring";
+import Cookie from "js-cookie";
+import axios from "axios";
+import { promises } from "stream";
+import { rejects } from "assert";
+import { api_url } from "../../util/environment";
 
-const apiURL = process.env.STRAPI_URL || "http://localhost:1337";
-const strapi = new Strapi(apiURL);
+const API_URL = process.env.STRAPI_URL;
 
-export const strapiRegister = (
+//register a new user
+export const registerUser = (
   username: string,
   email: string,
   password: string
 ) => {
-  if (!process.browser) {
-    return undefined;
-  }
-  strapi.register(username, email, password).then((res) => {
-    setToken(res);
+  //prevent function from eing ran on the server
+  if (typeof window === "undefined") return;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URL}/auth/local/register`, { username, email, password }) //post register info to api
+      .then((res) => {
+        //set token response form Strapi for serverr validation
+        Cookie.set("token", res.data.jwt);
+
+        //respove the promise to set loading to false in Signup
+        resolve(res);
+        //redirect back to home page
+        Router.push("/");
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object ack to the form
+        reject(error);
+      });
   });
-  return Promise.resolve();
 };
-//use strapi to get a JWT and token object, save
-//to approriate cookei for future requests
-export const strapiLogin = (email: string, password: string) => {
-  if (!process.browser) {
-    return;
-  }
-  //Get a token
-  strapi.login(email, password).then((res) => {
-    setToken(res);
+export const login = (identifier: string, password: string) => {
+  //prevent function from being ran on the server
+  if (typeof window === "undefined") return;
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URL}/auth/local`, { identifier, password })
+      .then((res) => {
+        //set token response from Strapi for server validation
+        Cookie.set("token", res.data.jwt);
+        //resolve the promise to set loading to false in SignUp form
+        resolve(res);
+        //redirect back to home page for restaurance selection
+        Router.push("/");
+      })
+      .catch((error) => {
+        //reject the promise and pass the error object back to the form
+        reject(error);
+      });
   });
-  return Promise.resolve();
 };
 
-export const setToken = (token) => {
-  if (!process.browser) {
-    return;
-  }
-  Cookies.set("username", token.user.username);
-  Cookies.set("jwt", token.jwt);
-  if (Cookies.get("username")) {
-    Router.push("/");
-  }
-};
-export const unsetToken = () => {
-  if (!process.browser) {
-    return;
-  }
-  Cookies.remove("jwt");
-  Cookies.remove("username");
-  Cookies.remove("cart");
-  //to support logging out from all windows
-  window.localStorage.setItem("logout", Date.now().toString());
+export const logout = () => {
+  //remove token and user cookie
+  Cookie.remove("token");
+  delete window.__user;
+  // sync logout between multiple windows
+  const date = Date.now().toString() as string;
+  window.localStorage.setItem("logout", date);
+  //redirect to the home page
   Router.push("/");
 };
+//Higher Order Component to wrap our pages and logout simultaneously logged in tabs
 
-export const getUserFromServerCookie = (req) => {
-  if (!req.headers.cookie || "") {
-    return undefined;
-  }
-  let username = req.headers.cookie
-    .split(";")
-    .find((user: string) => user.trim().startsWith("username="));
-  if (username) {
-    username = username.split("=")[1];
-  }
-  const jwtCookie = req.headers.cookie
-    .split(";")
-    .find((c: string) => c.trim().startsWith("jwt="));
-  if (!jwtCookie) {
-    return undefined;
-  }
-  const jwt = jwtCookie.split("=")[1];
-  return jwtDecode(jwt), username;
-};
-export const getUserFromLocalCookie = () => {
-  return Cookies.get("username");
-};
+export const withAuthSync = (Component: any) => {
+  const Wrapper = (props: any) => {
+    const syncLogout = (event: any) => {
+      if (event.key === "logout") {
+        Router.push("/login");
+      }
+    };
 
-//these will be used if you expand to a provider such as Auth0
-const getQueryParams = () => {
-  const params = {};
-  window.location.href.replace(
-    /([^(?|#)=&]+)(=([^&]*))?/g,
-    ($0, $1, $2, $3) => {
-      params[$1] = $3;
-    }
-  );
-  return params;
-};
-export const extractInfoFromHash = () => {
-  if (!process.browser) {
-    return undefined;
+    useEffect(() => {
+      window.addEventListener("storage", syncLogout);
+
+      return () => {
+        window.removeEventListener("storage", syncLogout);
+        window.localStorage.removeItem("logout");
+      };
+    }, []);
+
+    return <Component {...props} />;
+  };
+
+  if (Component.getInitialProps) {
+    Wrapper.getInitialProps = Component.getInitialProps;
   }
-  const { id_token, state } = getQueryParams();
-  return { token: id_token, secret: state };
+
+  return Wrapper;
 };
