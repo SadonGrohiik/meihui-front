@@ -82,6 +82,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ProductPage: NextPage = ({ product }: any) => {
+  console.log(process.env.NODE_ENV);
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { ref, width, height } = useElementSize();

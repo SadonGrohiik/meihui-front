@@ -6,7 +6,7 @@ import { promises } from "stream";
 import { rejects } from "assert";
 import { api_url } from "../../util/environment";
 
-const API_URL = process.env.STRAPI_URL;
+const API_URL = "http://localhost:1337";
 
 //register a new user
 export const registerUser = (
@@ -19,7 +19,11 @@ export const registerUser = (
 
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/auth/local/register`, { username, email, password }) //post register info to api
+      .post(`http://localhost:1337/api/auth/local/register`, {
+        username,
+        email,
+        password,
+      }) //post register info to api
       .then((res) => {
         //set token response form Strapi for serverr validation
         Cookie.set("token", res.data.jwt);

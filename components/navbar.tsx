@@ -193,7 +193,7 @@ const Navbar = () => {
             </a>
           </Link>
         </Menu.Item>
-        <Menu.Item icon={<IconDoorExit size={14} />}>پروفایل</Menu.Item>
+        <Menu.Item icon={<IconUser size={14} />}>پروفایل</Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
