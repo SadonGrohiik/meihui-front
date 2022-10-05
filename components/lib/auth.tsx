@@ -19,7 +19,7 @@ export const registerUser = (
 
   return new Promise((resolve, reject) => {
     axios
-      .post(`http://localhost:1337/api/auth/local/register`, {
+      .post(`${API_URL}/api/auth/local/register`, {
         username,
         email,
         password,
@@ -44,7 +44,7 @@ export const login = (identifier: string, password: string) => {
   if (typeof window === "undefined") return;
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/auth/local`, { identifier, password })
+      .post(`${API_URL}/api/auth/local`, { identifier, password })
       .then((res) => {
         //set token response from Strapi for server validation
         Cookie.set("token", res.data.jwt);
@@ -69,6 +69,7 @@ export const logout = () => {
   window.localStorage.setItem("logout", date);
   //redirect to the home page
   Router.push("/");
+  console.log("logout");
 };
 //Higher Order Component to wrap our pages and logout simultaneously logged in tabs
 

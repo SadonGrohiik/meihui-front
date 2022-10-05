@@ -34,11 +34,7 @@ html,
   color: rgb(255, 255, 255);
   background: #88d0c3;
 }
-.mantine-TextInput-input{
-  &:focus{
-    border:1.5px solid #88d0c3!important; 
-  }
-}
+
 body {
   padding: 0;
   margin: 0;
@@ -73,14 +69,19 @@ label{
   font-family: 'Yekan';
   font-weight: 500;
 }
-.mantine-TextInput-input{
+
+.mantine-TextInput-input, .mantine-PasswordInput-innerInput{
   text-align: right;
   padding: 20px;
-  padding-right: 45px;
+  padding-right: 25px;
   font-family: 'Yekan';
   font-weight: 300;
+  &:focus{
+    border:1.5px solid #88d0c3!important; 
+  }
 }
 
-.mantine-TextInput-rightSection{
-  padding-right: 10px;
+.mantine-PasswordInput-rightSection{
+  left: 0;
+  right: 90%;
 }

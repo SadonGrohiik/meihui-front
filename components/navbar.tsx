@@ -12,6 +12,7 @@ import {
   MantineProvider,
   useMantineTheme,
   Divider,
+  UnstyledButton,
 } from "@mantine/core";
 import styled from "@emotion/styled";
 import Image from "next/image";
@@ -33,6 +34,8 @@ import { c_main } from "../util/styleParams";
 import React, { useContext } from "react";
 import AppContext from "../context/AppContext";
 import { logout } from "./lib/auth";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const header_height: number = 80;
 
@@ -127,14 +130,22 @@ const Navbar = () => {
   const theme = useMantineTheme();
   const button_color = theme.colors.pastelBlue;
   const { classes } = useStyles();
-  let auth = false;
   const { loading, error, data } = useFetch(
     "http://localhost:1337/api/categories"
   );
-
+  const jwt = Cookies.get("token");
+  let user_name = "";
+  if (user) {
+    axios
+      .get("http://localhost:1337/api/users/me", {
+        headers: { Authorization: "Bearer " + jwt },
+      })
+      .then((res) => {
+        console.log(res.data.full_name);
+      });
+  }
   if (loading) return <p>Loadig...</p>;
   if (error) return <p>Error!</p>;
-
   const categories = data.data;
   const mainLinks = categories.map((category: any) => {
     if (category.attributes.primary) {
@@ -180,18 +191,16 @@ const Navbar = () => {
       <Menu.Dropdown>
         <Menu.Label>حساب</Menu.Label>
         <Menu.Item icon={<IconDoorExit size={14} />}>
-          {" "}
-          <Link href="/">
-            <a
-              className="nav-link"
-              onClick={() => {
-                logout();
-                setUser(null);
-              }}
-            >
-              خروج
-            </a>
-          </Link>
+          <UnstyledButton
+            className={classes.navLink}
+            onClick={() => {
+              console.log("click");
+              logout();
+              setUser(null);
+            }}
+          >
+            <Link href="/">خروج</Link>
+          </UnstyledButton>
         </Menu.Item>
         <Menu.Item icon={<IconUser size={14} />}>پروفایل</Menu.Item>
       </Menu.Dropdown>
