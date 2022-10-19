@@ -14,9 +14,7 @@ import {
   Divider,
   UnstyledButton,
 } from "@mantine/core";
-import styled from "@emotion/styled";
 import Image from "next/image";
-import { useDisclosure } from "@mantine/hooks";
 import {
   IconChevronDown,
   IconUser,
@@ -133,17 +131,7 @@ const Navbar = () => {
   const { loading, error, data } = useFetch(
     "http://localhost:1337/api/categories"
   );
-  const jwt = Cookies.get("token");
-  let user_name = "";
-  if (user) {
-    axios
-      .get("http://localhost:1337/api/users/me", {
-        headers: { Authorization: "Bearer " + jwt },
-      })
-      .then((res) => {
-        console.log(res.data.full_name);
-      });
-  }
+
   if (loading) return <p>Loadig...</p>;
   if (error) return <p>Error!</p>;
   const categories = data.data;
@@ -189,7 +177,7 @@ const Navbar = () => {
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Label>حساب</Menu.Label>
+        <Menu.Label>{user?.full_name}</Menu.Label>
         <Menu.Item icon={<IconDoorExit size={14} />}>
           <UnstyledButton
             className={classes.navLink}
